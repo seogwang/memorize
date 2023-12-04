@@ -5,6 +5,7 @@ import com.memorize01.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,29 @@ public class BoardController {
     @PostMapping("/api/write")
     @ResponseBody
     public Long boardWrite(@Valid BoardDTO boardDTO) {
+        return boardService.register(boardDTO);
+    }
+
+    @GetMapping("/board/list")
+    public String listAll2(Model model) {
+        List<BoardDTO> boardDTOList = boardService.findAll();
+        model.addAttribute("boardList", boardDTOList);
+        return "board/list";
+    }
+
+    @GetMapping("/board/read")
+    public BoardDTO findByBno2(Long bno) {
+        BoardDTO boardDTO = boardService.findByBno(bno);
+        return boardDTO;
+    }
+
+    @GetMapping("/board/write")
+    public String boardForm2() {
+        return "board/write";
+    }
+
+    @PostMapping("/board/write")
+    public Long boardWrite2(@Valid BoardDTO boardDTO) {
         return boardService.register(boardDTO);
     }
 }

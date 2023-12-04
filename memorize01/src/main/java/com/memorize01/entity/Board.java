@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 @EntityListeners(value = AuditingEntityListener.class)
-public class Board {
+public class Board extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bno;
@@ -28,14 +28,6 @@ public class Board {
 
     @Column(length = 50, nullable = false)
     private String writer;
-
-    @Column(name="resdate", updatable = false)
-    @CreatedDate
-    private LocalDateTime resDate;
-
-    @Column(name="moddate")
-    @LastModifiedDate
-    private LocalDateTime modDate;
 
     public void change(String title, String content){
         this.title = title;

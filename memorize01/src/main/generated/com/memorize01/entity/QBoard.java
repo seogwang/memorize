@@ -19,13 +19,17 @@ public class QBoard extends EntityPathBase<Board> {
 
     public static final QBoard board = new QBoard("board");
 
+    public final QBaseEntity _super = new QBaseEntity(this);
+
     public final NumberPath<Long> bno = createNumber("bno", Long.class);
 
     public final StringPath content = createString("content");
 
-    public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> modDate = _super.modDate;
 
-    public final DateTimePath<java.time.LocalDateTime> resDate = createDateTime("resDate", java.time.LocalDateTime.class);
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> resDate = _super.resDate;
 
     public final StringPath title = createString("title");
 
