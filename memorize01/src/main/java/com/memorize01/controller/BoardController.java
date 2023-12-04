@@ -67,4 +67,20 @@ public class BoardController {
         boardService.register(boardDTO);
         return "board/list";
     }
+
+    @GetMapping("/board/modify")
+    public String modifyForm(){
+        return "board/modifyForm";
+    }
+    @PostMapping("/board/modify")
+    public String modify(@Valid BoardDTO boardDTO){
+        boardService.modify(boardDTO);
+        return "board/list";
+    }
+
+    @GetMapping("/board/remove")
+    public String remove(Long bno){
+        boardService.remove(bno);
+        return "/board/list";
+    }
 }
