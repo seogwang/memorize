@@ -52,9 +52,9 @@ public class BoardController {
     }
 
     @GetMapping("/board/read")
-    public BoardDTO findByBno2(Long bno) {
+    public String findByBno2(Long bno) {
         BoardDTO boardDTO = boardService.findByBno(bno);
-        return boardDTO;
+        return "board/detail";
     }
 
     @GetMapping("/board/write")
@@ -63,7 +63,8 @@ public class BoardController {
     }
 
     @PostMapping("/board/write")
-    public Long boardWrite2(@Valid BoardDTO boardDTO) {
-        return boardService.register(boardDTO);
+    public String boardWrite2(@Valid BoardDTO boardDTO) {
+        boardService.register(boardDTO);
+        return "board/list";
     }
 }
