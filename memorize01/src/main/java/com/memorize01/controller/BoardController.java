@@ -59,7 +59,7 @@ public class BoardController {
         model.addAttribute("responseDTO", responseDTO);
     }
 
-    @GetMapping("/board/read")
+    @GetMapping({"/board/read", "/board/modify"})
     public void findByBno2(Long bno, PageRequestDTO pageRequestDTO, Model model) {
         BoardDTO boardDTO = boardService.findByBno(bno);
         log.info(boardDTO);
