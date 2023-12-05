@@ -1,9 +1,12 @@
 package com.memorize01.controller;
 
 import com.memorize01.dto.BoardDTO;
+import com.memorize01.dto.PageRequestDTO;
+import com.memorize01.dto.PageResponseDTO;
 import com.memorize01.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +18,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Log4j2
 public class BoardController {
 
     public final BoardService boardService;
@@ -45,10 +49,12 @@ public class BoardController {
     }
 
     @GetMapping("/board/list")
-    public String listAll2(Model model) {
-        List<BoardDTO> boardDTOList = boardService.findAll();
-        model.addAttribute("boardList", boardDTOList);
-        return "board/list";
+    public void listAll2(PageRequestDTO pageRequestDTO, Model model) {
+        PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
+
+        log.info(responseDTO);
+
+        model.addAttribute("responseDTO", responseDTO);
     }
 
     @GetMapping("/board/read")

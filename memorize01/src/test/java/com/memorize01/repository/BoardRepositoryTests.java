@@ -1,6 +1,10 @@
 package com.memorize01.repository;
 
+import com.memorize01.dto.BoardDTO;
+import com.memorize01.dto.PageRequestDTO;
+import com.memorize01.dto.PageResponseDTO;
 import com.memorize01.entity.Board;
+import com.memorize01.service.BoardService;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,9 @@ import java.util.stream.IntStream;
 public class BoardRepositoryTests {
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private BoardService boardService;
 
     @Test
     public void testInsert() {
@@ -50,6 +57,21 @@ public class BoardRepositoryTests {
         log.info(result.getNumber());
         log.info(result.hasPrevious() + ": " + result.hasNext());
         result.getContent().forEach(board -> log.info(board));
+    }
+
+    @Test
+    public void testList() {
+
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .type("tcw")
+                .keyword("1")
+                .page(1)
+                .size(10)
+                .build();
+
+        PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
+
+        log.info(responseDTO);
     }
 
 }

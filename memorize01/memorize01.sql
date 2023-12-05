@@ -1,5 +1,7 @@
-CREATE DATABASE memorize02;
+CREATE DATABASE memorize01;
 
-USE memorize02;
+USE memorize01;
 
 SELECT * FROM board;
+
+SHOW DATABASES;

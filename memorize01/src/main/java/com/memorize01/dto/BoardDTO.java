@@ -29,6 +29,6 @@ public class BoardDTO {
     @Size(max = 50)
     private String writer;
 
-    private LocalDateTime resDate;
+    private LocalDateTime regDate;
     private LocalDateTime modDate;
 }

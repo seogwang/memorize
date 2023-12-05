@@ -1,10 +1,14 @@
 package com.memorize01.service;
 
 import com.memorize01.dto.BoardDTO;
+import com.memorize01.dto.PageRequestDTO;
+import com.memorize01.dto.PageResponseDTO;
 import com.memorize01.entity.Board;
 import com.memorize01.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,4 +55,22 @@ public class BoardServiceImpl implements BoardService {
     public void remove(Long bno) {
         boardRepository.deleteById(bno);
     }
+
+    @Override
+    public PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO) {
+        String[] types = pageRequestDTO.getTypes();
+        String keyword = pageRequestDTO.getKeyword();
+        Pageable pageable = pageRequestDTO.getPageable("bno");
+
+        Page<Board> result = boardRepository.searchAll(types, keyword, pageable);
+
+        List<BoardDTO> dtoList = result.stream().map(board -> modelMapper.map(board, BoardDTO.class)).collect(Collectors.toList());
+
+        return PageResponseDTO.<BoardDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(dtoList)
+                .total((int)result.getTotalElements())
+                .build();
+    }
+
 }
