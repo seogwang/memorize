@@ -60,9 +60,10 @@ public class BoardController {
     }
 
     @GetMapping("/board/read")
-    public String findByBno2(Long bno) {
+    public void findByBno2(Long bno, PageRequestDTO pageRequestDTO, Model model) {
         BoardDTO boardDTO = boardService.findByBno(bno);
-        return "board/detail";
+        log.info(boardDTO);
+        model.addAttribute("dto", boardDTO);
     }
 
     @GetMapping("/board/write")
