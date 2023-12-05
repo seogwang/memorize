@@ -18,7 +18,7 @@ public class BoardDTO {
     private Long bno;
 
     @NotEmpty
-    @Size(max = 200)
+    @Size(min = 3, max = 200)
     private String title;
 
     @NotEmpty
