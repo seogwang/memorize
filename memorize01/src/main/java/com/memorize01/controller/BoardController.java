@@ -90,19 +90,35 @@ public class BoardController {
             return "redirect:/board/list";
     }
 
-    @GetMapping("/board/modify")
-    public String modifyForm(){
-        return "board/modifyForm";
-    }
     @PostMapping("/board/modify")
-    public String modify(@Valid BoardDTO boardDTO){
+    public String modify(PageRequestDTO pageRequestDTO, @Valid BoardDTO boardDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+
+        log.info("board modify post......" + boardDTO);
+
+        if(bindingResult.hasErrors()) {
+
+            log.info("has errors......");
+
+            String link = pageRequestDTO.getLink();
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addAttribute("bno", boardDTO.getBno());
+
+            return "redirect:/board/modify?"+link;
+        }
+
         boardService.modify(boardDTO);
-        return "board/list";
+        redirectAttributes.addFlashAttribute("result", "modified");
+        redirectAttributes.addAttribute("bno", boardDTO.getBno());
+
+        return "redirect:/board/read";
     }
 
-    @GetMapping("/board/remove")
-    public String remove(Long bno){
+    @PostMapping("/board/remove")
+    public String remove(Long bno, RedirectAttributes redirectAttributes){
+
+        log.info("remove post.." + bno);
         boardService.remove(bno);
-        return "/board/list";
+        redirectAttributes.addFlashAttribute("result", "removed");
+        return "redirect:/board/list";
     }
 }
