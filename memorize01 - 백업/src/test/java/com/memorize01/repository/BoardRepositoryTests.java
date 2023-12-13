@@ -1,11 +1,10 @@
 package com.memorize01.repository;
 
-import com.memorize01.board.BoardRepository;
-import com.memorize01.board.BoardDTO;
-import com.memorize01.board.page.PageRequestDTO;
-import com.memorize01.board.page.PageResponseDTO;
+import com.memorize01.dto.BoardDTO;
+import com.memorize01.dto.PageRequestDTO;
+import com.memorize01.dto.PageResponseDTO;
 import com.memorize01.entity.Board;
-import com.memorize01.board.BoardService;
+import com.memorize01.service.BoardService;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

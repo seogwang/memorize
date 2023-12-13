@@ -1,6 +1,6 @@
-CREATE DATABASE msecurity04;
+CREATE DATABASE memorize01;
 
-USE msecurity04;
+USE memorize01;
 
 SELECT * FROM board;
 
